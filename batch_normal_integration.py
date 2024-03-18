@@ -33,11 +33,6 @@ def generate_dx_dy_batch(masks, nz_horizontal, nz_vertical, step_size=1):
 
     num_pixels_per_mask = cp.sum(masks, axis=(1, 2))
     num_pixels = cp.sum(num_pixels_per_mask)
-    
-    # mask_sizes_pad = cp.concatenate([cp.array([0]), cp.cumsum(num_pixels_per_mask)])
-    # mask_sizes_pad =  mask_sizes_pad[:, cp.newaxis, cp.newaxis].repeat(H, axis=1).repeat(W, axis=2)
-
-    # increase the padding every H * W
 
 
     # Generate an integer index array with the same shape as the mask.
@@ -60,11 +55,6 @@ def generate_dx_dy_batch(masks, nz_horizontal, nz_vertical, step_size=1):
     nz_bottom = nz_vertical[has_bottom_mask[masks]]
 
 
-    # has_top_mask_unpad = has_top_mask.sum(axis=(1, 2))
-    # has_top_mask_unpad = cp.concatenate([cp.array([0]), cp.cumsum(has_top_mask_unpad)])
-    # has_top_mask_unpad = has_top_mask_unpad[:, cp.newaxis, cp.newaxis].repeat(H, axis=1).repeat(W, axis=2)
-
-    # return
     # Create sparse matrices representing the partial derivatives for each direction.
     # top/bottom/left/right = vertical positive/vertical negative/horizontal negative/horizontal positive
     # The matrices are constructed using the extracted normal components and pixel indices.
