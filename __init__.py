@@ -1,0 +1,1 @@
+from .batch_normal_integration import normal_integration_batch_cupy
